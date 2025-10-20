@@ -19,7 +19,8 @@ def main():
 
         if scelta == "1":
             nuovo_nome = input("Inserisci il nuovo nome della crociera: ")
-            # TODO: Aggiorna il nome della crociera
+            crociera.nome = nuovo_nome
+            print (f"Il nuovo nome della crociera è: {crociera.nome}.")
 
         elif scelta == "2":
             file_path = "dati_crociera.csv"
@@ -33,12 +34,16 @@ def main():
             codice_cabina = input("Codice cabina: ")
             codice_passeggero = input("Codice passeggero: ")
             try:
-                crociera.assegna_passeggero_a_cabina(codice_cabina, codice_passeggero)
-                print("Cabina assegnata con successo.")
+                assegnazione = crociera.assegna_passeggero_a_cabina(codice_cabina, codice_passeggero)
+                if assegnazione :
+                    print("Cabina assegnata con successo.")
+                else :
+                    print ("Cabina già occupata")
             except Exception as e:
                 print(f"Errore: {e}")
 
         elif scelta == "4":
+            crociera.applica_sovrapprezzo()
             cabine_ordinate = crociera.cabine_ordinate_per_prezzo()
             print("\n--- Cabine ordinate per prezzo ---")
             for c in cabine_ordinate:
@@ -46,7 +51,9 @@ def main():
 
         elif scelta == "5":
             print("\n--- Elenco passeggeri ---")
-            crociera.elenca_passeggeri()
+            passeggeri = crociera.elenca_passeggeri()
+            for p in passeggeri :
+                print (p)
 
         elif scelta == "6":
             print("Uscita dal programma.")

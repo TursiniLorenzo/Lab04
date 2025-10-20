@@ -1,25 +1,69 @@
+from passeggero import Passeggero
+from cabina import Cabina
+from cabinaDeluxe import CabinaDeluxe
+import operator
+
+# Classe crociera
 class Crociera:
+
     def __init__(self, nome):
-        """Inizializza gli attributi e le strutture dati"""
-        # TODO
+        self._nome = nome
+        self._elenco_passeggeri = []
+        self._elenco_cabine = []
+        self._passeggero_per_cabina = []
 
-    """Aggiungere setter e getter se necessari"""
-    # TODO
+    @property
+    def nome (self) :
+        return self._nome
 
+    @nome.setter
+    def nome (self, nuovo_nome) :
+        self._nome = nuovo_nome
+        return
+
+    @property
+    def elenco_passeggeri (self) :
+        return self._elenco_passeggeri
+
+    @property
+    def elenco_cabine (self) :
+        return self._elenco_cabine
+
+    @property
+    def passeggero_per_cabina (self) :
+        return self._passeggero_per_cabina
+
+    # Carico i dati dalla classe Cabina e dalla classe Passeggero
     def carica_file_dati(self, file_path):
-        """Carica i dati (cabine e passeggeri) dal file"""
-        # TODO
+        self._elenco_cabine = Cabina.crea_cabina (file_path)
+        self._elenco_passeggeri = Passeggero.crea_passeggero(file_path)
+        return self.elenco_cabine, self.elenco_passeggeri
+
+    def __str__(self) :
+        passeggeri_str = "\n".join (str(p) for p in self.elenco_passeggeri)
+        cabine_str = "\n".join (str(c) for c in self.elenco_cabine)
+        return (f"Elenco passeggeri:\n{passeggeri_str if passeggeri_str else 'Nessun passeggero'}, "
+                f"\nElenco cabine:\n{cabine_str if cabine_str else 'Nessuna cabina'}")
 
     def assegna_passeggero_a_cabina(self, codice_cabina, codice_passeggero):
-        """Associa una cabina a un passeggero"""
-        # TODO
+        if not hasattr (self, "_passeggero_per_cabina") :
+            self._passeggero_per_cabina = []
+
+        for assegnazione in self._passeggero_per_cabina :
+            if assegnazione [0] == codice_cabina :
+                return False
+
+        self._passeggero_per_cabina.append ([codice_cabina, codice_passeggero])
+        return True
 
     def cabine_ordinate_per_prezzo(self):
-        """Restituisce la lista ordinata delle cabine in base al prezzo"""
-        # TODO
-
+        cabine_ordinate = sorted (self.elenco_cabine, key = operator.attrgetter ("costo_per_notte"))
+        return cabine_ordinate
 
     def elenca_passeggeri(self):
-        """Stampa l'elenco dei passeggeri mostrando, per ognuno, la cabina a cui è associato, quando applicabile """
-        # TODO
+        return self.elenco_passeggeri
 
+    def applica_sovrapprezzo (self) :
+        for cabine in self._elenco_cabine :
+            if isinstance (cabine, CabinaDeluxe) :
+                cabine.sovrapprezzo()
