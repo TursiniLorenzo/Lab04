@@ -3,7 +3,6 @@ from cabina import Cabina
 from cabinaDeluxe import CabinaDeluxe
 import operator
 
-# Classe crociera
 class Crociera:
 
     def __init__(self, nome):
@@ -33,7 +32,8 @@ class Crociera:
     def passeggero_per_cabina (self) :
         return self._passeggero_per_cabina
 
-    # Carico i dati dalla classe Cabina e dalla classe Passeggero
+    # Inserisco i dati relativi alle cabine e ai passeggeri attraverso i metodi definiti nelle classi Cabina e
+    # Passeggeri
     def carica_file_dati(self, file_path):
         self._elenco_cabine = Cabina.crea_cabina (file_path)
         self._elenco_passeggeri = Passeggero.crea_passeggero(file_path)
@@ -51,7 +51,7 @@ class Crociera:
 
         for assegnazione in self._passeggero_per_cabina :
             if assegnazione [0] == codice_cabina :
-                return False
+                return False # Verifico che la cabina non sia già stata assegnata
 
         self._passeggero_per_cabina.append ([codice_cabina, codice_passeggero])
         return True
@@ -66,4 +66,4 @@ class Crociera:
     def applica_sovrapprezzo (self) :
         for cabine in self._elenco_cabine :
             if isinstance (cabine, CabinaDeluxe) :
-                cabine.sovrapprezzo()
+                cabine.sovrapprezzo() # Se le cabine sono delle cabine deluxe, allora applico il sovrapprezzo

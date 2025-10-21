@@ -19,6 +19,8 @@ class Passeggero :
     def cognome (self) :
         return self._cognome
 
+    # Leggo dal file e prendo solamente le righe il cui primo elemento inizia per "P" ovvero la prima lettera del codice
+    # dei passeggeri
     @classmethod
     def crea_passeggero (cls, file_path) :
         passeggeri = []

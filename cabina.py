@@ -24,6 +24,8 @@ class Cabina :
     def costo_per_notte (self) :
         return self._costo_per_notte
 
+    # Leggo dal file e prendo solamente le righe il cui primo elemento inizia per "C" ovvero la prima lettera del codice
+    # delle cabine
     @classmethod
     def crea_cabina (cls, file_path) :
         from cabinaDeluxe import CabinaDeluxe

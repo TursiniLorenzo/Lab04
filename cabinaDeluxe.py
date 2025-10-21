@@ -13,6 +13,7 @@ class CabinaDeluxe (Cabina) :
     def __str__(self):
         return super().__str__() + f", Tipo cabina: {self.tipo_cabina}"
 
+    # Applico il sovrapprezzo e controllo che tipo di cabina deluxe sia
     def sovrapprezzo (self) :
         costo = float (self.costo_per_notte)
         tipo = self.tipo_cabina
